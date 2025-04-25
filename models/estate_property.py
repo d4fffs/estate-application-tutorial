@@ -69,6 +69,9 @@ class EstateProperty(models.Model):
         copy=False,
         default="new",
     )
+    property_type_id = fields.Many2one("estate.property.type", string="Property Type")
+    offer_ids = fields.One2many("estate.property.offer", "property_id", string="Offers")
+    tag_ids = fields.Many2many("estate.property.tag", string="Tags")
 
     def action_sold(self):
         if "canceled" in self.mapped("state"):
@@ -84,13 +87,13 @@ class EstateProperty(models.Model):
         template = self.env.ref("estate.simple_example_email_template")
 
         email_values = {
-            "email_to": "faiqwidayat@gmail.com,daffafa926@gmail.com",
+            "email_to": "onesinustamba@gmail.com,onesinus231@gmail.com",
             "email_cc": False,
             "auto_delete": True,
             "recipient_ids": [],
             "partner_ids": [],
             "scheduled_date": False,
-            "email_from": "faiqwidayat@gmail.com",
+            "email_from": "onesinus231@gmail.com",
         }
         template.send_mail(
             self.id,
